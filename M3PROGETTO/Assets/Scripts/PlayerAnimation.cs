@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     private Animator _animator;
     private string _isMoving = "IsMoving";
     private string _xDirection = "XDirection";
+    private string _yDirection = "YDirection";
     // Start is called before the first frame update
     private void Awake()
     {
@@ -19,21 +21,15 @@ public class PlayerAnimation : MonoBehaviour
     {
         Vector2 _direction = _playerController.Direction;
 
-        bool _moving = _direction.magnitude > 0.1f;
+        bool _moving = (_direction.x != 0) || (_direction.y != 0); 
         _animator.SetBool(_isMoving, _moving );
 
         if (_moving)
         {
             _animator.SetFloat(_xDirection , _direction.x);
+            _animator.SetFloat (_yDirection , _direction.y);
 
-            if (_direction.x <  0 )
-            {
-                transform.localScale = new Vector3(-1,1,1);
-            }
-            else if (_direction.x > 0 ) 
-            {
-                 transform.localScale = new Vector3 (1,1,1);
-            }
+           
         }
     }
 }
