@@ -5,7 +5,7 @@ using UnityEngine;
 public class LifeController : MonoBehaviour
 {
     [SerializeField] private int _maxHealth;
-    [SerializeField] private int _currentHealth;
+    private int _currentHealth;
 
     private void Awake()
     {
