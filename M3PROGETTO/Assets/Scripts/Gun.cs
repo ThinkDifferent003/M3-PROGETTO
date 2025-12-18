@@ -43,7 +43,15 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IfCanShoot())
+       if (_enemy ==  null)
+        {
+            GameObject enemyObj = GameObject.FindWithTag("Enemy");
+            if (enemyObj != null )
+            {
+                _enemy = enemyObj.transform;
+            }
+        }
+       if (_enemy != null && IfCanShoot())
         {
             Shoot();
         }
