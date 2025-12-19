@@ -20,6 +20,32 @@ public class Gun : MonoBehaviour
         }
         
     }
+
+    private Transform CloseestEnemy()
+    {
+        GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject _target = null;
+        float _minDistance = Mathf.Infinity;
+        Vector3 _currentPosition = transform.position;
+        foreach (GameObject _potencialTarget in _enemies)
+        {
+            Vector3 _directionToTarget = _potencialTarget.transform.position - _currentPosition;
+            float _sqrTarget = _directionToTarget.sqrMagnitude;
+            if (_sqrTarget < _minDistance)
+            {
+                _minDistance = _sqrTarget;
+                _target = _potencialTarget;
+            }
+        }
+        if (_target != null)
+        {
+            return _target.transform;
+        }
+        else
+        {
+            return null;
+        }
+    }
     private bool IfCanShoot()
     {
         float _shootTime = _lastShoot + _fireRate;
@@ -48,17 +74,13 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (_enemy ==  null)
+        _enemy = CloseestEnemy();
+       if (_enemy != null && Vector2.Distance(transform.position , _enemy.position) <= _fireRange)
         {
-            GameObject enemyObj = GameObject.FindWithTag("Enemy");
-            if (enemyObj != null )
+            if (IfCanShoot())
             {
-                _enemy = enemyObj.transform;
+                Shoot();
             }
-        }
-       if (_enemy != null && IfCanShoot())
-        {
-            Shoot();
         }
     }
 }

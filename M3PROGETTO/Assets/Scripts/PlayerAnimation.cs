@@ -30,6 +30,16 @@ public class PlayerAnimation : MonoBehaviour
                 _animator.SetTrigger(_isDead);
                 _dead = true;
             }
+            if (_playerController != null)
+            {
+                _playerController.enabled = false;
+            }
+            Rigidbody2D _rb = GetComponent<Rigidbody2D>();
+            if (_rb != null)
+            {
+                _rb.velocity = Vector2.zero;
+            }
+            return;
         }
         Vector2 _direction = _playerController.Direction;
 
