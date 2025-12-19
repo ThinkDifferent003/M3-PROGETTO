@@ -5,7 +5,7 @@ using UnityEngine;
 public class LifeController : MonoBehaviour
 {
     [SerializeField] private int _maxHealth;
-    private int _currentHealth;
+    public int _currentHealth;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class LifeController : MonoBehaviour
     private void Die()
     {
         Debug.Log($"Il personaggio {gameObject.name} è stato sconfitto!");
-        Destroy(gameObject);
+        Destroy(gameObject , 1f);
     }
    
 }

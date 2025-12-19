@@ -7,18 +7,30 @@ public class PlayerAnimation : MonoBehaviour
 {
     private PlayerController _playerController;
     private Animator _animator;
+    private LifeController _lifeController;
     private string _isMoving = "IsMoving";
     private string _xDirection = "XDirection";
     private string _yDirection = "YDirection";
-    // Start is called before the first frame update
+    private string _isDead = "IsDead";
+    private bool _dead = false;
+    
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
         _animator = GetComponent<Animator>();
+        _lifeController = GetComponent<LifeController>();
     }
     // Update is called once per frame
     void Update()
     {
+        if (_lifeController  != null && _lifeController._currentHealth <= 0)
+        {
+            if (!_dead)
+            {
+                _animator.SetTrigger(_isDead);
+                _dead = true;
+            }
+        }
         Vector2 _direction = _playerController.Direction;
 
         bool _moving = (_direction.x != 0) || (_direction.y != 0); 
