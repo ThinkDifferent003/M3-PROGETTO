@@ -14,7 +14,11 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         GameObject enemyobj = GameObject.FindWithTag("Enemy");
-        _enemy = enemyobj.transform;
+        if (enemyobj != null)
+        {
+           _enemy = enemyobj.transform;
+        }
+        
     }
     private bool IfCanShoot()
     {
@@ -31,6 +35,7 @@ public class Gun : MonoBehaviour
 
     private void Shoot()
     {
+        if (_enemy == null) return;
         _lastShoot = Time.time;
         Vector2 _spawnPosition = transform.position;
         Vector2 _targetPosition = _enemy.position;

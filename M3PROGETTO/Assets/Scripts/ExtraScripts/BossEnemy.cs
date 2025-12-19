@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class BossEnemy : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _rangeAggro;
     [SerializeField] private Transform _playerTransform;
     // Start is called before the first frame update
     private void Awake()
     {
         GameObject _player = GameObject.FindWithTag("Player");
-        if (_player != null)
+        if( _player != null )
         {
             _playerTransform = _player.transform;
         }
@@ -25,18 +26,22 @@ public class Enemy : MonoBehaviour
                 {
                     _playerLife.TakeDamage(5);
                 }
-                Destroy(gameObject);
+                
             }
         }
     }
-
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
+    {
+        if ( _playerTransform == null )
         {
-            if (_playerTransform == null) return;
-
-            transform.position = Vector2.MoveTowards(transform.position, _playerTransform.position, _speed * Time.deltaTime);
+            return;
         }
-    
+        float _distancePlayer = Vector2.Distance(transform.position, _playerTransform.position);
+        if ( _distancePlayer < _rangeAggro )
+        {
+            transform.position = Vector2.MoveTowards(transform.position, _playerTransform.position, _speed * Time.deltaTime);
+            Debug.LogWarning("TI INSEGUO!");
+        }
+    }
 }
-
