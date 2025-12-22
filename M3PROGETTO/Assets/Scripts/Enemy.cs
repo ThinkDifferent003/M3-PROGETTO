@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
             _rb.velocity = _direction * _speed;
             
             bool _moving = _rb.velocity.x != 0 || _rb.velocity.y != 0;
-        _animator.SetBool(_isMoving , _moving);
+         _animator.SetBool(_isMoving , _moving);
           if (_moving)
            {
               _animator.SetFloat(_xDirection , _direction.x);

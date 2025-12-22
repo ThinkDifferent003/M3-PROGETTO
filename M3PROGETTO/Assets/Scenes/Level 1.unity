@@ -25930,9 +25930,10 @@ GameObject:
   - component: {fileID: 2146371503}
   - component: {fileID: 2146371502}
   - component: {fileID: 2146371501}
+  - component: {fileID: 2146371504}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26031,7 +26032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
-  _rangeAggro: 3
+  _rangeAggro: 6
   _playerTransform: {fileID: 314991933}
 --- !u!50 &2146371502
 Rigidbody2D:
@@ -26105,6 +26106,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.61977136, y: 0.8806789}
   m_EdgeRadius: 0
+--- !u!95 &2146371504
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146371496}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ae114d6f383dc934e89af98aafe12746, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &3485814902572892577
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,9 +7,19 @@ public class BossEnemy : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _rangeAggro;
     [SerializeField] private Transform _playerTransform;
-    // Start is called before the first frame update
+    private Rigidbody2D _rb;
+    private Animator _animator;
+    private LifeController _lifeController;
+    private string _xDirection = "XDirection";
+    private string _yDirection = "YDirection";
+    private string _isMoving = "IsMoving";
+    private string _isDead = "IsDead";
+    private bool _dead = false;
     private void Awake()
     {
+        _rb = GetComponent<Rigidbody2D>();
+        _lifeController = GetComponent<LifeController>();
+        _animator = GetComponent<Animator>();
         GameObject _player = GameObject.FindWithTag("Player");
         if( _player != null )
         {
@@ -33,15 +43,35 @@ public class BossEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ( _playerTransform == null )
+        if (!_dead && _lifeController != null && _lifeController._currentHealth <= 0)
+        {
+            _dead = true;
+            _rb.velocity = Vector2.zero;
+            _animator.SetTrigger(_isDead);
+        }
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if (_dead || _playerTransform == null)
         {
             return;
         }
         float _distancePlayer = Vector2.Distance(transform.position, _playerTransform.position);
-        if ( _distancePlayer < _rangeAggro )
+        if (_distancePlayer < _rangeAggro)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _playerTransform.position, _speed * Time.deltaTime);
+            Vector2 direction = ((Vector2)_playerTransform.position - (Vector2)transform.position).normalized;
+            _rb.velocity = direction * _speed;
+            _animator.SetBool(_isMoving, true);
+            _animator.SetFloat(_xDirection, direction.x);
+            _animator.SetFloat(_yDirection, direction.y);
             Debug.LogWarning("TI INSEGUO!");
+        }
+        else
+        {
+            _rb.velocity = Vector2.zero;
+            _animator.SetBool(_isMoving , false);
         }
     }
 }
