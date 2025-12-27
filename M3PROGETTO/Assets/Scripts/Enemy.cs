@@ -35,8 +35,13 @@ public class Enemy : MonoBehaviour
             {
                 {
                     _playerLife.TakeDamage(5);
+                    
                 }
-                Destroy(gameObject);
+                _dead = true;
+                _animator.SetTrigger(_isDead);
+                _rb.velocity = Vector2.zero;
+                Destroy(gameObject , 1f);
+                
             }
         }
     }

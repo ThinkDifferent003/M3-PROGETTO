@@ -24,6 +24,16 @@ public class LifeController : MonoBehaviour
         }
     }
 
+    public void HealLife(int _heal)
+    {
+        _currentHealth += _heal;
+        if (_currentHealth > _maxHealth)
+        {
+            _currentHealth = _maxHealth;
+        }
+        Debug.Log($"Vita rimanente a {_currentHealth}");
+    }
+
     private void Die()
     {
         Debug.Log($"Il personaggio {gameObject.name} è stato sconfitto!");
