@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _sprint;
+    private float _currentSpeed;
     private float _horizontal;
     private float _vertical;
     private Rigidbody2D _rb;
@@ -24,10 +26,19 @@ public class PlayerController : MonoBehaviour
         _vertical = Input.GetAxis("Vertical");
 
         _moveDirection = new Vector2(_horizontal, _vertical).normalized;
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            _currentSpeed = _speed * _sprint;
+        }
+        else
+        {
+            _currentSpeed = _speed;
+        }
     }
 
     private void FixedUpdate()
     {
-        _rb.MovePosition(_rb.position + _moveDirection * (_speed * Time.deltaTime));
+        _rb.MovePosition(_rb.position + _moveDirection * (_currentSpeed * Time.deltaTime));
     }
 }

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _clip;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private float _fireRange;
     [SerializeField] private float _fireRate;
-    [SerializeField] private Transform _enemy;
+    private Transform _enemy;
     [SerializeField] private float _bulletSpeed;
     private float _lastShoot;
     // Start is called before the first frame update
@@ -61,6 +63,10 @@ public class Gun : MonoBehaviour
 
     private void Shoot()
     {
+        if (_audioSource != null && _clip != null)
+        {
+            _audioSource.PlayOneShot(_clip);
+        }
         if (_enemy == null) return;
         _lastShoot = Time.time;
         Vector2 _spawnPosition = transform.position;
